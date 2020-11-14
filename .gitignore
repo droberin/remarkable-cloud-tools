@@ -1,0 +1,6 @@
+*.yaml
+*~
+.venv
+venv
+*.pyc
+.idea
