@@ -9,7 +9,7 @@ Specially in terms of packaging and stop kicking PEP-everything.
 Pull-requests are welcome!
 
 ## Improvements
-Well, it'll be nice if this could be connected to some Frameworks like `django` or `flink in order to use it as a hub. Meaning you could even generate some reports and send them right into your reMarkable device.
+Well, it'll be nice if this could be connected to some Frameworks like `django` or `flink` in order to use it as a hub. Meaning you could even generate some reports and send them right into your reMarkable device.
 
 ## Configuration
 Example configuration file:
@@ -57,8 +57,51 @@ remarkable2_cloud_upload your_file.pdf
 remarkable2_cloud_upload --device AnotherReMarkableDevice your_file.pdf
 
 ```
+# Extras!!!
+## Add to KDE/Plasma Upload File ReMarkable2
+_*WARNING*_: change to project directory and activate virtualenv, if created one, before using commands below.
 
+### Send To menu for Plasma
+```shell script
+mkdir -p ${HOME}/.local/share/kservices5/ServiceMenus/
+cat << EOF > ${HOME}/.local/share/kservices5/ServiceMenus/uploadtoremarkable2.desktop
+[Desktop Entry]
+Type=Service
+Actions=SendToReMarkable2Cloud
+Encoding=UTF-8
+MimeType=application/pdf
+X-KDE-ServiceTypes=KonqPopupMenu/Plugin
+X-KDE-Priority=TopLevel
+X-KDE-Submenu=Send To
+
+[Desktop Action SendToReMarkable2Cloud]
+Name=reMarkable2
+Exec=konsole -e $(which python3) ${PWD}/remarkable2_cloud_upload.py /%f"
+EOF
+```
+This will show up a "reMarkable2" option into "Send To" on right-click on a PDF file.
+
+### Send To menu for KDE4 (not tested yet!)
+```shell script
+mkdir -p ${HOME}/.kde/share/kde4/services/ServiceMenus/
+cat << EOF > ${HOME}/.kde/share/kde4/services/ServiceMenus/uploadtoremarkable2.desktop
+[Desktop Entry]
+Type=Service
+Actions=SendToReMarkable2Cloud
+Encoding=UTF-8
+MimeType=application/pdf
+X-KDE-ServiceTypes=KonqPopupMenu/Plugin
+X-KDE-Priority=TopLevel
+X-KDE-Submenu=Send To
+
+[Desktop Action SendToReMarkable2Cloud]
+Name=reMarkable2
+Exec=konsole -e $(which python3) ${PWD}/remarkable2_cloud_upload.py /%f"
+EOF
+```
+This will show up a "reMarkable2" option into "Send To" on right-click on a PDF file.
+
+ 
 # Author
 Roberto Salgado A.K.A. DRoBeR.
 Check reMarkable 2 website if you don't have already 3 of them.
- 
